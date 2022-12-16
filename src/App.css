@@ -2,6 +2,13 @@
     background-image: linear-gradient(115deg, #9F7AEA, #FEE2FE)
 }
 
+.styleOne1 {
+    background-image: linear-gradient(115deg, #FEE2FE,#9F7AEA)
+}
+
+.styleOne2 {
+    background-image: linear-gradient(115deg, #9F7AEA, #9F7AEA)
+}
 .styleTwo{
     background-image: url('./pages/gato.svg');
 }

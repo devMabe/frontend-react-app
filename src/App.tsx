@@ -1,13 +1,20 @@
+import {BrowserRouter,Route, Routes}  from 'react-router-dom'
 import { LoginPage } from './pages/loginPage'
-import { RegisterPage } from './pages/registerPage'
 import './App.css'
+import { RegisterPage } from './pages/registerPage'
+import NavBar from './components/NavBar'
 
 function App() {
   return (
     <>
       <div className="App">
-        {/* <LoginPage /> */}
-        <RegisterPage />
+       <BrowserRouter>
+       <NavBar/>
+        <Routes>
+        <Route path='/login' element={ <LoginPage/> }/>
+        <Route path='/register' element={ <RegisterPage/> }/>
+        </Routes>
+       </BrowserRouter>
       </div>
     </>
   )
