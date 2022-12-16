@@ -154,7 +154,15 @@ export function RegisterPage() {
                 {message === null ? (
                   <div></div>
                 ) : (
-                  <span style={{textAlign:'center'!, color: 'red', marginTop:10}}>{message}</span>
+                  <span
+                    style={{
+                      textAlign: 'center'!,
+                      color: 'red',
+                      marginTop: 10,
+                    }}
+                  >
+                    {message}
+                  </span>
                 )}
                 <div className="mt-5 mb-3">
                   <input
