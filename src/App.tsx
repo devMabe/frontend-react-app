@@ -1,11 +1,13 @@
 import { LoginPage } from './pages/loginPage'
+import { RegisterPage } from './pages/registerPage'
 import './App.css'
 
 function App() {
   return (
     <>
       <div className="App">
-        <LoginPage />
+        {/* <LoginPage /> */}
+        <RegisterPage />
       </div>
     </>
   )

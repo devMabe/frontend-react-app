@@ -1,0 +1,7 @@
+.styleOne {
+    background-image: linear-gradient(115deg, #9F7AEA, #FEE2FE)
+}
+
+.styleTwo{
+    background-image: url('./pages/gato.svg');
+}
