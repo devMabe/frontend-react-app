@@ -12,6 +12,9 @@ export function RegisterPage() {
     })
 
   const [check, setCheck] = useState(false)
+  const [{ message }, setError] = useState({
+    message: '',
+  })
 
   const register = (event: React.FormEvent) => {
     event.preventDefault()
@@ -26,6 +29,9 @@ export function RegisterPage() {
       })
     }
     if (check) {
+      setError({
+        message: '',
+      })
       console.log(name, lastname, email)
       setData({
         name: '',
@@ -35,7 +41,9 @@ export function RegisterPage() {
         confirmpassword: '',
       })
     } else {
-      alert('Debe aceptar los terminos antes de continuar')
+      setError({
+        message: '¡Debe aceptar los terminos antes de continuar!',
+      })
     }
   }
   return (
@@ -143,10 +151,12 @@ export function RegisterPage() {
                     required
                   />
                 </div>
+                {message === null ? (
+                  <div></div>
+                ) : (
+                  <span style={{textAlign:'center'!, color: 'red', marginTop:10}}>{message}</span>
+                )}
                 <div className="mt-5 mb-3">
-                  {
-
-                  }
                   <input
                     type="checkbox"
                     className="border border-gray-400"
