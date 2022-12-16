@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export function RegisterPage() {
   const [{ name, lastname, email, password, confirmpassword }, setData] =
@@ -143,7 +143,10 @@ export function RegisterPage() {
                     required
                   />
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 mb-3">
+                  {
+
+                  }
                   <input
                     type="checkbox"
                     className="border border-gray-400"
@@ -161,6 +164,9 @@ export function RegisterPage() {
                     </a>
                   </span>
                 </div>
+                <Link className="hover:text-purple-500" to="/login">
+                  ¿Do you have an account ?, login here !
+                </Link>
                 <div className="mt-5">
                   <button className="w-full bg-purple-500 py-1 text-center text-white">
                     Register Now

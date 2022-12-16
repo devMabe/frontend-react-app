@@ -5,7 +5,7 @@ export default function NavBar() {
       <nav className="flex items-center justify-between flex-wrap styleOne2 p-6">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <span className="font-semibold text-xl tracking-tight">
-            Acouting SW
+            Accouting SW
           </span>
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
