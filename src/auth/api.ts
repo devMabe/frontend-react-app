@@ -1,0 +1,44 @@
+import Axios, { AxiosRequestConfig } from 'axios'
+import { API_BASE_URL } from './config'
+
+export interface Credentials {
+  username?: string
+  password?: string
+}
+export type dataUser = Credentials &{
+  firstName?: string
+  lastName?: string
+  email?: string
+}
+
+export const onLogin = async (data: Credentials) => {
+  const requestConfig: AxiosRequestConfig = {
+    method: 'post',
+    url: API_BASE_URL + '/login',
+    data,
+  }
+
+  try {
+    const { data: response } = await Axios.request(requestConfig)
+    return response
+  } catch (e: any) {
+    console.error(e)
+    return { error: e.response.data.message }
+  }
+}
+
+export const onRegister = async (data: dataUser) => {
+  const requestConfig: AxiosRequestConfig = {
+    method: 'post',
+    url: API_BASE_URL + '/register',
+    data,
+  }
+
+  try {
+    const { data: response } = await Axios.request(requestConfig)
+    console.log(response)
+  } catch (e: any) {
+    console.error(e)
+    return { error: e.response.data.message }
+  }
+}
