@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, redirect } from 'react-router-dom'
-import { json } from 'stream/consumers'
 import { onLogin } from '../auth/api'
 import { BASE_URL } from '../auth/config'
 import Michi from './gato.svg'
@@ -27,7 +26,6 @@ export function LoginPage() {
       const error = JSON.stringify(resp.error)
       alert(JSON.parse(error))
     }
-
   }
 
   return (
