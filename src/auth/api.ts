@@ -5,10 +5,9 @@ export interface Credentials {
   email?: string
   password?: string
 }
-export type dataUser = Credentials &{
+export type dataUser = Credentials & {
   firstName?: string
   lastName?: string
-  email?: string
 }
 
 export const onLogin = async (data: Credentials) => {
@@ -53,13 +52,13 @@ export const onGreetings =  async (userLogin: userTokenResponse) => {
 export const onRegister = async (data: dataUser) => {
   const requestConfig: AxiosRequestConfig = {
     method: 'post',
-    url: API_BASE_URL + '/register',
+    url: API_BASE_URL + 'auth/register',
     data,
   }
 
   try {
     const { data: response } = await Axios.request(requestConfig)
-    console.log(response)
+    return response
   } catch (e: any) {
     console.error(e)
     return { error: e.response.data.message }

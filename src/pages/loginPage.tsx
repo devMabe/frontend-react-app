@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, redirect } from 'react-router-dom'
+import { json } from 'stream/consumers'
 import { onLogin } from '../auth/api'
 import { BASE_URL } from '../auth/config'
 import Michi from './gato.svg'
@@ -8,39 +9,34 @@ export function LoginPage() {
     email: '',
     password: '',
   })
-  const [error, setError] = useState('')
+  const [error, setError] = useState({})
 
   const login = async (event: React.FormEvent) => {
     event.preventDefault()
     setCredentials({
       email: '',
-      password:''
+      password: '',
     })
-    try {
-      const resp = await onLogin({email, password})
-      if(resp) {
-        localStorage.setItem('token', resp.token)
-        localStorage.setItem('data', JSON.stringify(resp.data))
-        window.location.href = `${BASE_URL}home`
-      }
-    } catch (error) {
-      setError(error as string)
+
+    const resp = await onLogin({ email, password })
+    if (resp.token) {
+      localStorage.setItem('token', resp.token)
+      localStorage.setItem('data', JSON.stringify(resp.data))
+      window.location.href = `${BASE_URL}home`
+    } else {
+      const error = JSON.stringify(resp.error)
+      alert(JSON.parse(error))
     }
+
   }
 
   return (
     <section className="h-screen styleOne1">
       <div className="px-6 h-full text-gray-800">
         <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
-        <div
-        className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
-      >
-        <img
-          src={Michi}
-          className="w-full"
-          alt="Sample image"
-        />
-      </div>
+          <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
+            <img src={Michi} className="w-full" alt="Sample image" />
+          </div>
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
             <form onSubmit={login}>
               <div className="mb-6">
@@ -75,9 +71,7 @@ export function LoginPage() {
               </div>
 
               <div className="text-center lg:text-left">
-                <button
-                  className="w-full bg-purple-600 hover:bg-purple-800 py-1 text-center text-white"
-                >
+                <button className="w-full bg-purple-600 hover:bg-purple-800 py-1 text-center text-white">
                   Login
                 </button>
                 <p className="text-sm font-semibold mt-2 pt-1 mb-0">

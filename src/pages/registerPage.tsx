@@ -1,5 +1,8 @@
+import { data } from 'autoprefixer'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { onRegister } from '../auth/api'
+import { BASE_URL } from '../auth/config'
 
 export function RegisterPage() {
   const [{ name, lastname, email, password, confirmpassword }, setData] =
@@ -16,7 +19,7 @@ export function RegisterPage() {
     message: '',
   })
 
-  const register = (event: React.FormEvent) => {
+  const register =  async (event: React.FormEvent) => {
     event.preventDefault()
     if (password !== confirmpassword) {
       alert('constraseñas incorrectas')
@@ -32,7 +35,6 @@ export function RegisterPage() {
       setError({
         message: '',
       })
-      console.log(name, lastname, email)
       setData({
         name: '',
         lastname: '',
@@ -40,10 +42,19 @@ export function RegisterPage() {
         password: '',
         confirmpassword: '',
       })
+
     } else {
       setError({
         message: '¡Debe aceptar los terminos antes de continuar!',
       })
+    }
+    const resp = await onRegister({firstName:name, lastName: lastname, email, password})
+    if (resp.token) {
+      localStorage.setItem('token', resp.token)
+      localStorage.setItem('data', JSON.stringify(resp.data))
+      window.location.href = `${BASE_URL}home`
+    } else {
+      alert(resp.error)
     }
   }
   return (
@@ -182,7 +193,7 @@ export function RegisterPage() {
                     </a>
                   </span>
                 </div>
-                <Link className="hover:text-purple-500" to="/login">
+                <Link className="hover:text-purple-500" to="/">
                   ¿Do you have an account ?, login here !
                 </Link>
                 <div className="mt-5">
