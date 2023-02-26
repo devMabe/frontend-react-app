@@ -1,19 +1,31 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
+import { onLogin } from '../auth/api'
+import { BASE_URL } from '../auth/config'
 import Michi from './gato.svg'
 export function LoginPage() {
-  const [{ email, password }, serCredentials] = useState({
+  const [{ email, password }, setCredentials] = useState({
     email: '',
     password: '',
   })
+  const [error, setError] = useState('')
 
-  const login = (event: React.FormEvent) => {
+  const login = async (event: React.FormEvent) => {
     event.preventDefault()
-    serCredentials({
-      email:'',
+    setCredentials({
+      email: '',
       password:''
     })
-    console.log(email, password)
+    try {
+      const resp = await onLogin({email, password})
+      if(resp) {
+        localStorage.setItem('token', resp.token)
+        localStorage.setItem('data', JSON.stringify(resp.data))
+        window.location.href = `${BASE_URL}home`
+      }
+    } catch (error) {
+      setError(error as string)
+    }
   }
 
   return (
@@ -30,7 +42,6 @@ export function LoginPage() {
         />
       </div>
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-            <h1 className="text-center mb-10">WELCOME  :D</h1>
             <form onSubmit={login}>
               <div className="mb-6">
                 <input
@@ -40,7 +51,7 @@ export function LoginPage() {
                   placeholder="Email address"
                   value={email}
                   onChange={(event) =>
-                    serCredentials({
+                    setCredentials({
                       email: event.target.value,
                       password,
                     })
@@ -55,7 +66,7 @@ export function LoginPage() {
                   placeholder="Password"
                   value={password}
                   onChange={(event) =>
-                    serCredentials({
+                    setCredentials({
                       email,
                       password: event.target.value,
                     })
